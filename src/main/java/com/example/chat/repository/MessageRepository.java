@@ -1,4 +1,6 @@
 package com.example.chat.repository;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.chat.database.MongoDBConnection;
 import com.example.chat.model.Message;
@@ -17,6 +19,7 @@ public class MessageRepository {
 
     public void save(Message message) {
 
+
         Document document = new Document("id", message.getId())
                 .append("content", message.getContent())
                 .append("sender", message.getSender().getUsername());
@@ -24,5 +27,9 @@ public class MessageRepository {
         collection.insertOne(document);
 
         System.out.println("Message enregistré : " + message.getContent());
+
+    }
+    public List<Document> findAll() {
+        return collection.find().into(new ArrayList<>());
     }
 }
